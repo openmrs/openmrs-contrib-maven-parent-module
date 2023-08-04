@@ -27,23 +27,18 @@
 	</organization>
 
 	<scm>
-		<connection>scm:git:git@github.com:openmrs/openmrs-contrib-maven-parent-module.git</connection>
-		<developerConnection>scm:git:git@github.com:openmrs/openmrs-contrib-maven-parent-module.git</developerConnection>
-		<url>https://github.com/openmrs/openmrs-contrib-maven-parent-module</url>
+		<connection>scm:git:git@github.com:maxwellgithinji/openmrs-contrib-maven-parent-module.git</connection>
+		<developerConnection>scm:git:git@github.com:maxwellgithinji/openmrs-contrib-maven-parent-module.git</developerConnection>
+		<url>https://github.com/maxwellgithinji/openmrs-contrib-maven-parent-module</url>
 		<tag>HEAD</tag>
 	</scm>
 
 	<distributionManagement>
 		<repository>
-			<id>openmrs-repo-releases</id>
-			<name>OpenMRS Releases</name>
-			<url>https://mavenrepo.openmrs.org/releases</url>
+		<id>github</id>
+		<name>GitHub Packages</name>
+		<url>https://github.com/maxwellgithinji/openmrs-contrib-maven-parent-module</url>
 		</repository>
-        <snapshotRepository>
-            <id>openmrs-repo-snapshots</id>
-            <name>OpenMRS Snapshots</name>
-            <url>https://mavenrepo.openmrs.org/snapshots</url>
-        </snapshotRepository>
 	</distributionManagement>
 	
 	<properties>
@@ -330,31 +325,6 @@
 						<arguments>-Prelease</arguments>
                         <tagNameFormat>@{project.version}</tagNameFormat>
 					</configuration>
-				</plugin>
-
-				<plugin>
-					<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
-					<artifactId>maven-java-formatter-plugin</artifactId>
-					<version>0.4</version>
-					<configuration>
-						<configFile>eclipse/OpenMRSFormatter.xml</configFile>
-						<overrideConfigCompilerVersion>true</overrideConfigCompilerVersion>
-						<lineEnding>LF</lineEnding>
-					</configuration>
-					<executions>
-						<execution>
-							<goals>
-								<goal>format</goal>
-							</goals>
-						</execution>
-					</executions>
-					<dependencies>
-						<dependency>
-							<groupId>org.openmrs.tools</groupId>
-							<artifactId>openmrs-tools</artifactId>
-							<version>${openmrsPlatformToolsVersion}</version>
-						</dependency>
-					</dependencies>
 				</plugin>
 
 				<plugin>
