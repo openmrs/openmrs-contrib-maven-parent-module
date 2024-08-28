@@ -52,7 +52,7 @@
 		<javaCompilerVersion>[1.6, 1.8]</javaCompilerVersion>
 		
 		<openmrsPlatformVersion>[1.11.2, 2.7.0-SNAPSHOT)</openmrsPlatformVersion>
-		<openmrsPlatformToolsVersion>[1.11.2, 2.7.0-SNAPSHOT)</openmrsPlatformToolsVersion>
+		<openmrsPlatformToolsVersion>${openmrsPlatformVersion}</openmrsPlatformToolsVersion>
 
 		<MODULE_ID>${project.parent.artifactId}</MODULE_ID>
 		<MODULE_NAME>${project.parent.name}</MODULE_NAME>
