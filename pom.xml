@@ -52,9 +52,6 @@
 		<javaCompilerSource>1.8</javaCompilerSource>
 		<javaCompilerTarget>1.8</javaCompilerTarget>
 
-		<openmrs.version>[2.0.0,)</openmrs.version>
-		<openmrs.version.legacy>1.11.2</openmrs.version.legacy>
-
 		<MODULE_ID>${project.parent.artifactId}</MODULE_ID>
 		<MODULE_NAME>${project.parent.name}</MODULE_NAME>
 		<MODULE_VERSION>${project.parent.version}</MODULE_VERSION>
