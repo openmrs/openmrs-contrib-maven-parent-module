@@ -1,2 +1,3 @@
 # maven-parent-openmrs-module
-Parent POM for any OpenMRS module
+two Parent POMs for any OpenMRS module
+
