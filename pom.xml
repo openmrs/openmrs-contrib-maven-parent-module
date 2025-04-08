@@ -49,11 +49,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
-		<javaCompilerSource>1.8</javaCompilerSource>
-		<javaCompilerTarget>1.8</javaCompilerTarget>
+		<javaCompilerSource>21</javaCompilerSource>
+		<javaCompilerTarget>21</javaCompilerTarget>
 		
-		<openmrsPlatformVersion>2.0.0</openmrsPlatformVersion>
-		<openmrsPlatformToolsVersion>2.0.0</openmrsPlatformToolsVersion>
+		<openmrsPlatformVersion>2.7.3</openmrsPlatformVersion>
+		<openmrsPlatformToolsVersion>2.7.3</openmrsPlatformToolsVersion>
 
 		<MODULE_ID>${project.parent.artifactId}</MODULE_ID>
 		<MODULE_NAME>${project.parent.name}</MODULE_NAME>
@@ -214,7 +214,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>2.5</version>
+					<version>3.4.2</version>
 					<executions>
 						<execution>
 							<goals>
@@ -227,7 +227,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
-					<version>2.5.3</version>
+					<version>3.1.1</version>
 					<configuration>
 						<useReleaseProfile>false</useReleaseProfile>
 						<autoVersionSubmodules>true</autoVersionSubmodules>
@@ -264,7 +264,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>buildnumber-maven-plugin</artifactId>
-					<version>1.1</version>
+					<version>3.2.1</version>
 					<configuration>
 						<buildNumberPropertyName>revisionNumber</buildNumberPropertyName>
 						<getRevisionOnlyOnce>true</getRevisionOnlyOnce>
@@ -308,7 +308,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>1.4.1</version>
+					<version>3.5.0</version>
 					<executions>
 						<execution>
 							<id>enforce-no-snapshots</id>
@@ -403,7 +403,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
-						<version>2.1.2</version>
+						<version>3.3.1</version>
 						<executions>
 							<execution>
 								<id>attach-sources</id>
@@ -416,7 +416,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.8.1</version>
+						<version>3.11.2</version>
 						<configuration>
 							<tags>
 								<tag>
