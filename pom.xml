@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs.maven.parents</groupId>
 	<artifactId>maven-parent-openmrs-module</artifactId>
-	<version>2.0.0</version>
+	<version>2.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>OpenMRS Module Parent POM</name>
 	<description>Declares parent POM for any OpenMRS module</description>
@@ -30,7 +30,7 @@
 		<connection>scm:git:git@github.com:openmrs/openmrs-contrib-maven-parent-module.git</connection>
 		<developerConnection>scm:git:git@github.com:openmrs/openmrs-contrib-maven-parent-module.git</developerConnection>
 		<url>https://github.com/openmrs/openmrs-contrib-maven-parent-module</url>
-		<tag>2.0.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<distributionManagement>
