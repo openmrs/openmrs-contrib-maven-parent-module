@@ -49,9 +49,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<maven.compiler.source>8</maven.compiler.source>
-		<maven.compiler.target>8</maven.compiler.target>
-
 		<openmrsPlatformVersion>2.0.0</openmrsPlatformVersion>
 		<openmrsPlatformToolsVersion>${openmrsPlatformVersion}</openmrsPlatformToolsVersion>
 
@@ -67,12 +64,14 @@
 				<groupId>org.openmrs.api</groupId>
 				<artifactId>openmrs-api</artifactId>
 				<version>${openmrsPlatformVersion}</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.openmrs.web</groupId>
 				<artifactId>openmrs-web</artifactId>
 				<version>${openmrsPlatformVersion}</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
@@ -80,6 +79,7 @@
 				<artifactId>openmrs-api</artifactId>
 				<version>${openmrsPlatformVersion}</version>
 				<classifier>tests</classifier>
+				<scope>test</scope>
 			</dependency>
 
 			<dependency>
@@ -87,6 +87,7 @@
 				<artifactId>openmrs-web</artifactId>
 				<version>${openmrsPlatformVersion}</version>
 				<classifier>tests</classifier>
+				<scope>test</scope>
 			</dependency>
 
 			<dependency>
@@ -94,6 +95,7 @@
 				<artifactId>openmrs-test</artifactId>
 				<version>${openmrsPlatformVersion}</version>
 				<type>pom</type>
+				<scope>test</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -102,7 +104,6 @@
 		<dependency>
 			<groupId>org.openmrs.api</groupId>
 			<artifactId>openmrs-api</artifactId>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -116,7 +117,6 @@
 			<groupId>org.openmrs.test</groupId>
 			<artifactId>openmrs-test</artifactId>
 			<type>pom</type>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -450,6 +450,81 @@
 	</build>
 
 	<profiles>
+		<profile>
+			<id>enforce-compiler-source-target</id>
+			<activation>
+				<property>
+					<name>!maven.compiler.release</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-enforcer-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>enforce-compiler-source-target</id>
+								<goals>
+									<goal>enforce</goal>
+								</goals>
+								<configuration>
+									<rules>
+										<requireProperty>
+											<property>maven.compiler.source</property>
+											<message>Set maven.compiler.source and maven.compiler.target (for Java 8) or maven.compiler.release (for Java 11+)</message>
+											<regex>^([89]|[1-9]\d+)$</regex>
+											<regexMessage>maven.compiler.source must be 8 or higher</regexMessage>
+										</requireProperty>
+										<requireProperty>
+											<property>maven.compiler.target</property>
+											<message>Set maven.compiler.source and maven.compiler.target (for Java 8) or maven.compiler.release (for Java 11+)</message>
+											<regex>^([89]|[1-9]\d+)$</regex>
+											<regexMessage>maven.compiler.target must be 8 or higher</regexMessage>
+										</requireProperty>
+									</rules>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>enforce-compiler-release</id>
+			<activation>
+				<property>
+					<name>maven.compiler.release</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-enforcer-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>enforce-compiler-release</id>
+								<goals>
+									<goal>enforce</goal>
+								</goals>
+								<configuration>
+									<rules>
+										<requireProperty>
+											<property>maven.compiler.release</property>
+											<regex>^(1[1-9]|[2-9]\d|\d{3,})$</regex>
+											<regexMessage>maven.compiler.release must be 11 or higher. For Java 8, use maven.compiler.source and maven.compiler.target instead.</regexMessage>
+										</requireProperty>
+									</rules>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
 		<profile>
 			<id>release</id>
 			<activation>
