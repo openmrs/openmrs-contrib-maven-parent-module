@@ -56,6 +56,14 @@
 		<MODULE_NAME>${project.parent.name}</MODULE_NAME>
 		<MODULE_VERSION>${project.parent.version}</MODULE_VERSION>
 		<MODULE_PACKAGE>${project.parent.groupId}.${project.parent.artifactId}</MODULE_PACKAGE>
+
+		<openmrs.license.header.inline>This Source Code Form is subject to the terms of the Mozilla Public License,
+v. 2.0. If a copy of the MPL was not distributed with this file, You can
+obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+
+Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 	</properties>
 
 	<dependencyManagement>
@@ -234,6 +242,58 @@
 				</plugin>
 
 				<plugin>
+					<groupId>com.mycila</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>4.6</version>
+					<configuration>
+						<licenseSets>
+							<licenseSet>
+								<inlineHeader>${openmrs.license.header.inline}</inlineHeader>
+								<includes>
+									<include>**/*.java</include>
+									<include>**/*.xml</include>
+									<include>**/*.properties</include>
+									<include>**/*.js</include>
+									<include>**/*.css</include>
+									<include>**/*.scss</include>
+									<include>**/*.sass</include>
+								</includes>
+								<excludes>
+									<exclude>**/pom.xml</exclude>
+									<exclude>**/target/**</exclude>
+									<exclude>.git/**</exclude>
+									<exclude>.idea/**</exclude>
+									<exclude>.settings/**</exclude>
+									<exclude>.classpath</exclude>
+									<exclude>.project</exclude>
+									<exclude>node_modules/**</exclude>
+									<exclude>**/*.min.js</exclude>
+									<exclude>**/*.min.css</exclude>
+								</excludes>
+							</licenseSet>
+						</licenseSets>
+						<mapping>
+							<java>SLASHSTAR_STYLE</java>
+							<js>SLASHSTAR_STYLE</js>
+							<css>SLASHSTAR_STYLE</css>
+							<scss>SLASHSTAR_STYLE</scss>
+							<sass>SLASHSTAR_STYLE</sass>
+							<xml>XML_STYLE</xml>
+							<properties>SCRIPT_STYLE</properties>
+						</mapping>
+					</configuration>
+					<executions>
+						<execution>
+							<id>license-format</id>
+							<phase>process-sources</phase>
+							<goals>
+								<goal>format</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
 					<groupId>com.diffplug.spotless</groupId>
 					<artifactId>spotless-maven-plugin</artifactId>
 					<version>2.30.0</version>
@@ -396,6 +456,26 @@
 								<pluginExecution>
 									<pluginExecutionFilter>
 										<groupId>
+											com.mycila
+										</groupId>
+										<artifactId>
+											license-maven-plugin
+										</artifactId>
+										<versionRange>
+											[4.0,)
+										</versionRange>
+										<goals>
+											<goal>format</goal>
+											<goal>check</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
 											org.apache.maven.plugins
 										</groupId>
 										<artifactId>
@@ -422,6 +502,10 @@
 		</pluginManagement>
 
 		<plugins>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>com.diffplug.spotless</groupId>
 				<artifactId>spotless-maven-plugin</artifactId>
@@ -561,6 +645,142 @@
 		</profile>
 
 		<profile>
+			<id>license-from-file</id>
+			<activation>
+				<property>
+					<name>openmrs.license.header.file</name>
+				</property>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>com.mycila</groupId>
+							<artifactId>license-maven-plugin</artifactId>
+							<configuration>
+								<licenseSets>
+									<licenseSet combine.self="override">
+										<header>${openmrs.license.header.file}</header>
+										<includes>
+											<include>**/*.java</include>
+											<include>**/*.xml</include>
+											<include>**/*.properties</include>
+											<include>**/*.js</include>
+											<include>**/*.css</include>
+											<include>**/*.scss</include>
+											<include>**/*.sass</include>
+										</includes>
+										<excludes>
+											<exclude>**/pom.xml</exclude>
+											<exclude>**/target/**</exclude>
+											<exclude>.git/**</exclude>
+											<exclude>.idea/**</exclude>
+											<exclude>.settings/**</exclude>
+											<exclude>.classpath</exclude>
+											<exclude>.project</exclude>
+											<exclude>node_modules/**</exclude>
+											<exclude>**/*.min.js</exclude>
+											<exclude>**/*.min.css</exclude>
+										</excludes>
+									</licenseSet>
+								</licenseSets>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+
+		<profile>
+			<id>license-skip-xml</id>
+			<activation>
+				<property>
+					<name>openmrs.license.skip.xml</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>com.mycila</groupId>
+							<artifactId>license-maven-plugin</artifactId>
+							<configuration>
+								<licenseSets>
+									<licenseSet>
+										<excludes combine.children="append">
+											<exclude>**/*.xml</exclude>
+										</excludes>
+									</licenseSet>
+								</licenseSets>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+
+		<profile>
+			<id>license-skip-properties</id>
+			<activation>
+				<property>
+					<name>openmrs.license.skip.properties</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>com.mycila</groupId>
+							<artifactId>license-maven-plugin</artifactId>
+							<configuration>
+								<licenseSets>
+									<licenseSet>
+										<excludes combine.children="append">
+											<exclude>**/*.properties</exclude>
+										</excludes>
+									</licenseSet>
+								</licenseSets>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+
+		<profile>
+			<id>license-skip-styles</id>
+			<activation>
+				<property>
+					<name>openmrs.license.skip.styles</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>com.mycila</groupId>
+							<artifactId>license-maven-plugin</artifactId>
+							<configuration>
+								<licenseSets>
+									<licenseSet>
+										<excludes combine.children="append">
+											<exclude>**/*.css</exclude>
+											<exclude>**/*.scss</exclude>
+											<exclude>**/*.sass</exclude>
+										</excludes>
+									</licenseSet>
+								</licenseSets>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+
+		<profile>
 			<id>ci</id>
 			<activation>
 				<property>
@@ -569,6 +789,22 @@
 			</activation>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>com.mycila</groupId>
+						<artifactId>license-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>license-format</id>
+								<phase>none</phase>
+							</execution>
+							<execution>
+								<id>license-check</id>
+								<goals>
+									<goal>check</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 					<plugin>
 						<groupId>com.diffplug.spotless</groupId>
 						<artifactId>spotless-maven-plugin</artifactId>
