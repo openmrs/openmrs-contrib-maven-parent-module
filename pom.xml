@@ -57,6 +57,8 @@
 		<MODULE_VERSION>${project.parent.version}</MODULE_VERSION>
 		<MODULE_PACKAGE>${project.parent.groupId}.${project.parent.artifactId}</MODULE_PACKAGE>
 
+		<gpg.skip>true</gpg.skip>
+
 		<openmrs.license.header.inline>This Source Code Form is subject to the terms of the Mozilla Public License,
 v. 2.0. If a copy of the MPL was not distributed with this file, You can
 obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
@@ -885,6 +887,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 									<goal>sign</goal>
 								</goals>
 								<configuration>
+									<skip>${gpg.skip}</skip>
 									<bestPractices>true</bestPractices>
 									<gpgArguments>
 										<arg>--pinentry-mode</arg>
@@ -896,6 +899,30 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 					</plugin>
 				</plugins>
 			</build>
+		</profile>
+
+		<profile>
+			<id>sign-with-env-passphrase</id>
+			<activation>
+				<property>
+					<name>env.MAVEN_GPG_PASSPHRASE</name>
+				</property>
+			</activation>
+			<properties>
+				<gpg.skip>false</gpg.skip>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>sign-with-property-passphrase</id>
+			<activation>
+				<property>
+					<name>gpg.passphrase</name>
+				</property>
+			</activation>
+			<properties>
+				<gpg.skip>false</gpg.skip>
+			</properties>
 		</profile>
 	</profiles>
 
