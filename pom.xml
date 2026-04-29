@@ -317,6 +317,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 					<executions>
 						<execution>
 							<id>spotless-format</id>
+							<phase>process-sources</phase>
 							<goals>
 								<goal>apply</goal>
 							</goals>
