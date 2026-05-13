@@ -532,6 +532,32 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-invoker-plugin</artifactId>
+				<version>3.9.0</version>
+				<inherited>false</inherited>
+				<configuration>
+					<projectsDirectory>src/it</projectsDirectory>
+					<cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+					<localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+					<settingsFile>src/it/settings.xml</settingsFile>
+					<pomIncludes>
+						<pomInclude>*/pom.xml</pomInclude>
+					</pomIncludes>
+					<streamLogsOnFailures>true</streamLogsOnFailures>
+				</configuration>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>install</goal>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
