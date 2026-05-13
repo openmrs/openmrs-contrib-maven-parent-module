@@ -151,6 +151,37 @@ Each of these opts a file type out of the license check:
 | `-Dopenmrs.license.skip.properties=true` | `*.properties` |
 | `-Dopenmrs.license.skip.styles=true` | `*.css`, `*.scss`, `*.sass` |
 
+### Exclude specific files
+
+To exclude individual files or paths (e.g., third-party sources under a
+different license), append to the plugin's `<excludes>` list in your
+module's `pom.xml`. The `combine.children="append"` attribute is required —
+without it, the child list replaces the parent's excludes and you'll lose
+the inherited defaults (`**/pom.xml`, `**/target/**`, etc.).
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>com.mycila</groupId>
+            <artifactId>license-maven-plugin</artifactId>
+            <configuration>
+                <licenseSets>
+                    <licenseSet>
+                        <excludes combine.children="append">
+                            <exclude>src/main/resources/third-party/**</exclude>
+                            <exclude>src/main/java/org/example/vendor/SomeFile.java</exclude>
+                        </excludes>
+                    </licenseSet>
+                </licenseSets>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+Patterns are Ant-style globs relative to the module's basedir.
+
 ## Build profiles
 
 | Profile | Activation | Effect |
