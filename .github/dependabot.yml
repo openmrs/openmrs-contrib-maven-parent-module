@@ -1,0 +1,32 @@
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directory: "/"
+    target-branch: "master"
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: "org.openmrs.api:*"
+      - dependency-name: "org.openmrs.web:*"
+      - dependency-name: "org.openmrs.test:*"
+      - dependency-name: "org.openmrs.tools:*"
+    groups:
+      maven-plugins:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "master"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
