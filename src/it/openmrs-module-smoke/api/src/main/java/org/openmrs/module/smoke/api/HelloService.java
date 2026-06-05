@@ -11,7 +11,7 @@ package org.openmrs.module.smoke.api;
 
 public class HelloService {
 	
-  public String greet(String name) {
+	public String greet(String name) {
 		return "Hello, " + name + "!";
 	}
 }
