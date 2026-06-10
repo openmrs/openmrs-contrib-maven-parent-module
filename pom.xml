@@ -649,6 +649,24 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 		</profile>
 
 		<profile>
+			<id>license-jdk11</id>
+			<activation>
+				<jdk>[11,)</jdk>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+  						<groupId>com.mycila</groupId>
+  						<artifactId>license-maven-plugin</artifactId>
+  						<version>5.0.0</version>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+
+		<profile>
 			<id>spotless-jdk11</id>
 			<activation>
 				<jdk>[11,17)</jdk>
