@@ -351,7 +351,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-dependency-plugin</artifactId>
-					<version>3.10.0</version>
+					<version>3.11.0</version>
 					<executions>
 						<execution>
 							<id>Expand resources</id>
@@ -373,7 +373,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>3.6.2</version>
+					<version>3.6.3</version>
 				</plugin>
 
 				<plugin>
@@ -385,7 +385,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>3.5.5</version>
+					<version>3.5.6</version>
 				</plugin>
 
 				<plugin>
@@ -535,7 +535,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-invoker-plugin</artifactId>
-				<version>3.9.0</version>
+				<version>3.10.1</version>
 				<inherited>false</inherited>
 				<configuration>
 					<projectsDirectory>src/it</projectsDirectory>
