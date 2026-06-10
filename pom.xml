@@ -35,9 +35,9 @@
 
 	<distributionManagement>
 		<repository>
-			<id>openmrs-repo-releases</id>
-			<name>OpenMRS Releases</name>
-			<url>https://mavenrepo.openmrs.org/releases</url>
+			<id>openmrs-repo-modules</id>
+			<name>OpenMRS Modules</name>
+			<url>https://mavenrepo.openmrs.org/modules</url>
 		</repository>
 		<snapshotRepository>
 			<id>openmrs-repo-snapshots</id>
@@ -562,6 +562,17 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 	</build>
 
 	<profiles>
+		<profile>
+			<id>parent-pom</id>
+			<distributionManagement>
+				<repository>
+					<id>openmrs-repo-releases</id>
+					<name>OpenMRS Releases</name>
+					<url>https://mavenrepo.openmrs.org/releases</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+
 		<profile>
 			<id>enforce-compiler-source-target</id>
 			<activation>
