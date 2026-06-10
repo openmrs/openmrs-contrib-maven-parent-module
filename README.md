@@ -190,6 +190,8 @@ Patterns are Ant-style globs relative to the module's basedir.
 | `release` | Wired into `maven-release-plugin` | Enforcer blocks SNAPSHOT dependencies. |
 | `enforce-compiler-source-target` | `maven.compiler.release` **not** set | Requires `source` and `target` to be set and valid. |
 | `enforce-compiler-release` | `maven.compiler.release` set | Requires `release` to be 11 or higher. |
+| `license-jdk11` | JDK range | Picks the Maven License plugin version compatible with your JDK. |
 | `spotless-jdk11` / `spotless-jdk17` | JDK range | Picks the Spotless plugin version compatible with your JDK. |
 | `license-from-file` | `openmrs.license.header.file` is set | Loads the license header from a file. |
 | `license-skip-xml` / `license-skip-properties` / `license-skip-styles` | Matching skip property is `true` | Excludes the file type from the license header. |
+| `parent-pom` | Manually activated | This changes the distributionManagement repo. It is only intended to be used by this POM itself.  |
