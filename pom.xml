@@ -546,6 +546,20 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 						<pomInclude>*/pom.xml</pomInclude>
 					</pomIncludes>
 					<streamLogsOnFailures>true</streamLogsOnFailures>
+					<!-- Isolated GPG keyring for the signing IT. The forked build signs using
+					     GNUPGHOME and the hook scripts read the same path via gpgHome, so the
+					     ephemeral key generated in prebuild is what the build signs with and
+					     postbuild verifies against. prebuild recreates it each run and it never
+					     touches a real keyring. It lives under java.io.tmpdir rather than target/
+					     because gpg-agent's UNIX socket path (homedir + /S.gpg-agent.browser) must
+					     stay under the ~104 char AF_UNIX limit; a deep checkout path blows that,
+					     but the temp dir is short on every platform. -->
+					<environmentVariables>
+						<GNUPGHOME>${java.io.tmpdir}/omrs-it-gpg</GNUPGHOME>
+					</environmentVariables>
+					<scriptVariables>
+						<gpgHome>${java.io.tmpdir}/omrs-it-gpg</gpgHome>
+					</scriptVariables>
 				</configuration>
 				<executions>
 					<execution>
