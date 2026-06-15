@@ -111,6 +111,7 @@ jobs:
         DEVELOPMENT_VERSION: ${{ inputs.developmentVersion }}
         SKIP_TESTS: ${{ inputs.skipTests }}
       run: |
+        export MAVEN_HOME="$(dirname "$(dirname "$(readlink -f "$(command -v mvn)")")")"
         args=(-e "git@github.com:${GITHUB_REPOSITORY}.git" -r "${RELEASE_VERSION}")
         if [[ -n "${DEVELOPMENT_VERSION}" ]]; then
           args+=(-d "${DEVELOPMENT_VERSION}")
