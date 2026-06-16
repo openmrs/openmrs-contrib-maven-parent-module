@@ -546,6 +546,10 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 						<pomInclude>*/pom.xml</pomInclude>
 					</pomIncludes>
 					<streamLogsOnFailures>true</streamLogsOnFailures>
+<!--					Keeping this for now because that plugin is still a snapshot. Remove before merge :)-->
+					<extraArtifacts>
+						<extraArtifact>org.openmrs.maven.plugins:openmrs-pgpverify-maven-plugin:1.0.0-SNAPSHOT</extraArtifact>
+					</extraArtifacts>
 					<!-- Isolated GPG keyring for the signing IT. The forked build signs using
 					     GNUPGHOME and the hook scripts read the same path via gpgHome, so the
 					     ephemeral key generated in prebuild is what the build signs with and
@@ -567,6 +571,20 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 						<goals>
 							<goal>install</goal>
 							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.openmrs.maven.plugins</groupId>
+				<artifactId>openmrs-pgpverify-maven-plugin</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>pgpverify</id>
+						<goals>
 							<goal>verify</goal>
 						</goals>
 					</execution>
