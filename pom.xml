@@ -1028,7 +1028,9 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 			<name>OpenMRS Nexus Repository</name>
 			<url>https://mavenrepo.openmrs.org/public</url>
 			<snapshots>
-				<enabled>false</enabled>
+				<!-- Enabled so the SNAPSHOT openmrs-pgpverify-maven-plugin resolves.
+					 Set back to false once that plugin is released as 1.0.0. -->
+				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
