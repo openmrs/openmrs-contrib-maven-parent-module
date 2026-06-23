@@ -580,7 +580,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 			<plugin>
 				<groupId>org.openmrs.maven.plugins</groupId>
 				<artifactId>openmrs-pgpverify-maven-plugin</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>1.0.0</version>
 				<executions>
 					<execution>
 						<id>pgpverify</id>
@@ -1028,9 +1028,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 			<name>OpenMRS Nexus Repository</name>
 			<url>https://mavenrepo.openmrs.org/public</url>
 			<snapshots>
-				<!-- Enabled so the SNAPSHOT openmrs-pgpverify-maven-plugin resolves.
-					 Set back to false once that plugin is released as 1.0.0. -->
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
