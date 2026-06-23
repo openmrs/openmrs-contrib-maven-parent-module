@@ -22,6 +22,7 @@ your module's `pom.xml` can stay small and focused.
 - [Resource filtering](#resource-filtering)
 - [Spotless (code formatting)](#spotless-code-formatting)
 - [License headers](#license-headers)
+- [PGP signature verification](#pgp-signature-verification)
 - [Build profiles](#build-profiles)
 
 ## What you get
@@ -37,6 +38,8 @@ your module's `pom.xml` can stay small and focused.
   profile that flips them from format-on-build to check-only.
 - A release profile that blocks SNAPSHOT dependencies.
 - A build number derived from git exposed as `revisionNumber`.
+- PGP verification of `org.openmrs` dependencies (off by default — see
+  [PGP signature verification](#pgp-signature-verification)).
 
 ## Defaults you'll want to override
 
@@ -181,6 +184,49 @@ the inherited defaults (`**/pom.xml`, `**/target/**`, etc.).
 ```
 
 Patterns are Ant-style globs relative to the module's basedir.
+
+## PGP signature verification
+
+The parent wires in the `openmrs-pgpverify-maven-plugin`, which checks that the
+`org.openmrs` dependencies a build resolves are signed by the OpenMRS GPG key.
+Artifacts outside the verified groupIds are ignored, so the check is
+version-independent and doesn't drag in third-party signing concerns.
+
+**It is off by default.** The `org.openmrs` / `org.openmrs.module` namespace is
+shared across the community — long-standing distributions such as kenyaemr and
+ugandaemr publish under it without being signed by OpenMRS Inc. However, for
+OpenMRS community managed artifacts, we should always turn this on.
+
+### Enable it
+
+Flip `openmrs.pgpverify.skip` to `false` — either per build:
+
+```sh
+mvn verify -Dopenmrs.pgpverify.skip=false
+```
+
+or permanently in your module's `pom.xml`:
+
+```xml
+<properties>
+    <openmrs.pgpverify.skip>false</openmrs.pgpverify.skip>
+</properties>
+```
+
+Once enabled, the `verify` goal runs in the `verify` phase and fails the build
+if a checked artifact is unsigned or signed by an unexpected key.
+
+### Tuning
+
+The plugin reads these properties (all optional):
+
+| Property | Default | Effect |
+| --- | --- | --- |
+| `openmrs.pgpverify.skip` | `true` (set by this parent) | Skip verification entirely. |
+| `openmrs.pgpverify.failOnMissingSignature` | `true` | Fail the build when a checked artifact has no signature. Set to `false` to warn instead. |
+| `openmrs.pgpverify.verifySnapshots` | `false` | Also verify SNAPSHOT artifacts. |
+| `openmrs.pgpverify.keyServer` | plugin default | Key server to fetch public keys from. |
+| `openmrs.pgpverify.keysFile` | plugin default | Override the map of allowed signing keys. |
 
 ## Build profiles
 
