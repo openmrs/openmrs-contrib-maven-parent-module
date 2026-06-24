@@ -58,6 +58,10 @@
 		<MODULE_PACKAGE>${project.parent.groupId}.${project.parent.artifactId}</MODULE_PACKAGE>
 
 		<gpg.skip>true</gpg.skip>
+    <!-- PGP signature verification of org.openmrs dependencies is opt-in, for historical reasons,
+	       but this should be enabled for all community-supported artifacts. -->
+		<openmrs.pgpverify.skip>true</openmrs.pgpverify.skip>
+
 
 		<!--
 			Versions for plugins whose maximum usable version is capped by the JDK in use. Each tier is
@@ -70,7 +74,7 @@
 		<spotlessVersion>2.30.0</spotlessVersion>
 		<spotlessVersionJdk11>2.46.1</spotlessVersionJdk11>
 		<spotlessVersionJdk17>3.7.0</spotlessVersionJdk17>
-
+    
 		<openmrs.license.header.inline>This Source Code Form is subject to the terms of the Mozilla Public License,
 v. 2.0. If a copy of the MPL was not distributed with this file, You can
 obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
@@ -659,6 +663,20 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 						<goals>
 							<goal>install</goal>
 							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.openmrs.maven.plugins</groupId>
+				<artifactId>openmrs-pgpverify-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<id>pgpverify</id>
+						<goals>
 							<goal>verify</goal>
 						</goals>
 					</execution>
