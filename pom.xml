@@ -59,6 +59,18 @@
 
 		<gpg.skip>true</gpg.skip>
 
+		<!--
+			Versions for plugins whose maximum usable version is capped by the JDK in use. Each tier is
+			declared as its own property and is kept up to date by versions:update-properties, constrained
+			to a JDK-compatible range (see the versions-maven-plugin configuration). The matching profiles
+			below select the right property per JDK.
+		-->
+		<licenseVersion>4.6</licenseVersion>
+		<licenseVersionJdk11>5.0.0</licenseVersionJdk11>
+		<spotlessVersion>2.30.0</spotlessVersion>
+		<spotlessVersionJdk11>2.46.1</spotlessVersionJdk11>
+		<spotlessVersionJdk17>3.7.0</spotlessVersionJdk17>
+
 		<openmrs.license.header.inline>This Source Code Form is subject to the terms of the Mozilla Public License,
 v. 2.0. If a copy of the MPL was not distributed with this file, You can
 obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
@@ -202,6 +214,86 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 					<version>3.15.0</version>
 				</plugin>
 
+				<!--
+					Keeps the JDK-tiered plugin version properties (declared above) current. Each property is
+					linked to its artifact and constrained to the version range usable on that tier's JDK, so
+					`mvn versions:update-properties` only ever bumps a tier within its compatible range. The
+					update-jdk-tiered-deps workflow runs this goal and opens a PR. Dependabot is configured to
+					ignore these coordinates so the two do not fight over them.
+				-->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>2.18.0</version>
+					<!-- Maintenance-only config for this POM; child modules must not inherit it -->
+					<inherited>false</inherited>
+					<configuration>
+						<generateBackupPoms>false</generateBackupPoms>
+						<!-- Only manage the explicitly listed properties; never auto-link others (e.g. openmrsPlatformVersion) -->
+						<autoLinkItems>false</autoLinkItems>
+						<properties>
+							<property>
+								<name>licenseVersion</name>
+								<!-- 5.x requires JDK 11; cap the JDK 8 tier at the 4.x line -->
+								<version>[,5.0.0)</version>
+								<dependencies>
+									<dependency>
+										<groupId>com.mycila</groupId>
+										<artifactId>license-maven-plugin</artifactId>
+										<version>${licenseVersion}</version>
+									</dependency>
+								</dependencies>
+							</property>
+							<property>
+								<name>licenseVersionJdk11</name>
+								<version>[5.0.0,)</version>
+								<dependencies>
+									<dependency>
+										<groupId>com.mycila</groupId>
+										<artifactId>license-maven-plugin</artifactId>
+										<version>${licenseVersionJdk11}</version>
+									</dependency>
+								</dependencies>
+							</property>
+							<property>
+								<name>spotlessVersion</name>
+								<!-- 2.30.0 is the last release that runs on JDK 8; 2.31.0+ require JDK 11 -->
+								<version>[,2.31.0)</version>
+								<dependencies>
+									<dependency>
+										<groupId>com.diffplug.spotless</groupId>
+										<artifactId>spotless-maven-plugin</artifactId>
+										<version>${spotlessVersion}</version>
+									</dependency>
+								</dependencies>
+							</property>
+							<property>
+								<name>spotlessVersionJdk11</name>
+								<!-- 3.x requires JDK 17; cap the JDK 11 tier at the 2.x line -->
+								<version>[2.31.0,3.0.0)</version>
+								<dependencies>
+									<dependency>
+										<groupId>com.diffplug.spotless</groupId>
+										<artifactId>spotless-maven-plugin</artifactId>
+										<version>${spotlessVersionJdk11}</version>
+									</dependency>
+								</dependencies>
+							</property>
+							<property>
+								<name>spotlessVersionJdk17</name>
+								<version>[3.0.0,)</version>
+								<dependencies>
+									<dependency>
+										<groupId>com.diffplug.spotless</groupId>
+										<artifactId>spotless-maven-plugin</artifactId>
+										<version>${spotlessVersionJdk17}</version>
+									</dependency>
+								</dependencies>
+							</property>
+						</properties>
+					</configuration>
+				</plugin>
+
 				<plugin>
 					<groupId>org.openmrs.maven.plugins</groupId>
 					<artifactId>maven-openmrs-plugin</artifactId>
@@ -246,7 +338,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 				<plugin>
 					<groupId>com.mycila</groupId>
 					<artifactId>license-maven-plugin</artifactId>
-					<version>4.6</version>
+					<version>${licenseVersion}</version>
 					<configuration>
 						<licenseSets>
 							<licenseSet>
@@ -298,7 +390,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 				<plugin>
 					<groupId>com.diffplug.spotless</groupId>
 					<artifactId>spotless-maven-plugin</artifactId>
-					<version>2.30.0</version>
+					<version>${spotlessVersion}</version>
 					<dependencies>
 						<dependency>
 							<groupId>org.openmrs.tools</groupId>
@@ -673,7 +765,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 						<plugin>
   						<groupId>com.mycila</groupId>
   						<artifactId>license-maven-plugin</artifactId>
-  						<version>5.0.0</version>
+  						<version>${licenseVersionJdk11}</version>
 						</plugin>
 					</plugins>
 				</pluginManagement>
@@ -691,7 +783,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 						<plugin>
 							<groupId>com.diffplug.spotless</groupId>
 							<artifactId>spotless-maven-plugin</artifactId>
-							<version>2.46.1</version>
+							<version>${spotlessVersionJdk11}</version>
 						</plugin>
 					</plugins>
 				</pluginManagement>
@@ -709,7 +801,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 						<plugin>
 							<groupId>com.diffplug.spotless</groupId>
 							<artifactId>spotless-maven-plugin</artifactId>
-							<version>3.6.0</version>
+							<version>${spotlessVersionJdk17}</version>
 						</plugin>
 					</plugins>
 				</pluginManagement>

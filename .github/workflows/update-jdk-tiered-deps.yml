@@ -1,0 +1,57 @@
+name: Update JDK-tiered dependencies
+
+# Dependabot cannot model dependencies whose maximum version is capped by the JDK in use: it would
+# bump every declaration of a coordinate to the same latest version, breaking the JDK 8/11 builds.
+# This workflow delegates that bookkeeping to versions:update-properties, which honours the per-tier
+# version ranges configured on versions-maven-plugin in pom.xml, then opens a PR with the result.
+# Dependabot is configured to ignore these coordinates so the two do not fight over them.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays, matching the weekly Dependabot cadence
+  workflow_dispatch:
+
+# An app token (minted from the OMRS PR bot credentials) is used so the generated PR triggers the
+# build workflow; PRs opened with the default GITHUB_TOKEN do not.
+permissions:
+  contents: read
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Generate app token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ secrets.OMRS_PR_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.OMRS_PR_BOT_PRIVATE_KEY }}
+
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@ad2b38190b15e4d6bdf0c97fb4fca8412226d287 # v5.3.0
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+
+      - name: Update JDK-tiered version properties
+        run: mvn -B versions:update-properties
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          branch: chore/update-jdk-tiered-deps
+          delete-branch: true
+          commit-message: "Update JDK-tiered plugin versions"
+          title: "Update JDK-tiered plugin versions"
+          body: |
+            Automated update of the JDK-tiered plugin version properties via
+            `mvn versions:update-properties`, constrained to each tier's JDK-compatible
+            version range (configured on `versions-maven-plugin` in `pom.xml`).
+          labels: dependencies
