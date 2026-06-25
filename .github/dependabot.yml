@@ -10,6 +10,9 @@ updates:
       - dependency-name: "org.openmrs.web:*"
       - dependency-name: "org.openmrs.test:*"
       - dependency-name: "org.openmrs.tools:*"
+      # JDK-tiered: managed by the update-jdk-tiered-deps workflow, which respects per-JDK version caps
+      - dependency-name: "com.diffplug.spotless:spotless-maven-plugin"
+      - dependency-name: "com.mycila:license-maven-plugin"
     groups:
       maven-plugins:
         patterns:
