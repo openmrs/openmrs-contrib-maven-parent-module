@@ -228,7 +228,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>versions-maven-plugin</artifactId>
-					<version>2.18.0</version>
+					<version>2.21.0</version>
 					<!-- Maintenance-only config for this POM; child modules must not inherit it -->
 					<inherited>false</inherited>
 					<configuration>
