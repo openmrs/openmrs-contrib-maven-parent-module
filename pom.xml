@@ -317,7 +317,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.5.0</version>
+					<version>3.5.1</version>
 					<executions>
 						<execution>
 							<goals>
@@ -672,7 +672,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 			<plugin>
 				<groupId>org.openmrs.maven.plugins</groupId>
 				<artifactId>openmrs-pgpverify-maven-plugin</artifactId>
-				<version>1.0.0</version>
+				<version>1.0.1</version>
 				<executions>
 					<execution>
 						<id>pgpverify</id>
