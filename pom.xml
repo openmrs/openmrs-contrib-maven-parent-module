@@ -73,7 +73,7 @@
 		<licenseVersionJdk11>5.1.2</licenseVersionJdk11>
 		<spotlessVersion>2.30.0</spotlessVersion>
 		<spotlessVersionJdk11>2.46.1</spotlessVersionJdk11>
-		<spotlessVersionJdk17>3.10.0</spotlessVersionJdk17>
+		<spotlessVersionJdk17>3.10.1</spotlessVersionJdk17>
     
 		<openmrs.license.header.inline>This Source Code Form is subject to the terms of the Mozilla Public License,
 v. 2.0. If a copy of the MPL was not distributed with this file, You can
