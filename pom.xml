@@ -469,7 +469,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>3.6.3</version>
+					<version>3.7.0</version>
 				</plugin>
 
 				<plugin>
