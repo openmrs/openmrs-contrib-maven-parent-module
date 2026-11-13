@@ -228,7 +228,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>versions-maven-plugin</artifactId>
-					<version>2.23.0</version>
+					<version>2.25.1</version>
 					<!-- Maintenance-only config for this POM; child modules must not inherit it -->
 					<inherited>false</inherited>
 					<configuration>
@@ -424,7 +424,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>buildnumber-maven-plugin</artifactId>
-					<version>3.3.1</version>
+					<version>3.4.0</version>
 					<configuration>
 						<buildNumberPropertyName>revisionNumber</buildNumberPropertyName>
 						<getRevisionOnlyOnce>true</getRevisionOnlyOnce>
@@ -469,7 +469,7 @@ graphic logo is a trademark of OpenMRS Inc.</openmrs.license.header.inline>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>3.6.3</version>
+					<version>3.7.0</version>
 				</plugin>
 
 				<plugin>
